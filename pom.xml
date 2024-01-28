@@ -9,17 +9,14 @@
         <relativePath />
     </parent>
 
-    <groupId>pl.piomin.services</groupId>
-    <artifactId>sample-spring-microservices-new</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <groupId>com.ttechlab.services</groupId>
+    <artifactId>sample-spring-microservice</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>17</java.version>
         <spring-cloud.version>2022.0.4</spring-cloud.version>
-        <sonar.projectKey>piomin_sample-spring-microservices-new</sonar.projectKey>
-        <sonar.organization>piomin</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <modules>
@@ -51,5 +48,33 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>build-image</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <version>3.4.0</version>
+                        <configuration>
+                            <to>
+                                <image>ttechlab/${project.artifactId}:${project.version}</image>
+                            </to>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>dockerBuild</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
